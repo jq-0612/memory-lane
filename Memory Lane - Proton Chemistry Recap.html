@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Lane - Proton Chemistry Recap</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: linear-gradient(to right, #0f3460, #16213e);
+            color: white;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #00ffcc;
+            text-shadow: 0 0 10px #00ffcc;
+            margin-top: 20px;
+        }
+        .road {
+            position: relative;
+            width: 90%;
+            height: 100px;
+            background: #1a1a1a;
+            margin: 40px auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+            overflow: hidden;
+        }
+        .car {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            top: 25px;
+            left: 0;
+            background: #00ffcc;
+            border-radius: 50%;
+            transition: left 1.5s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        .checkpoint {
+            position: absolute;
+            top: 10px;
+            width: 50px;
+            height: 50px;
+            background: #ffcc00;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        .checkpoint:hover {
+            transform: scale(1.2);
+            background: #ff9900;
+        }
+        .content-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            gap: 20px;
+        }
+        .info-box {
+            flex: 1;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 255, 204, 0.6);
+            display: none;
+        }
+        .ai-tutor {
+            flex: 1;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 255, 204, 0.6);
+            text-align: left;
+            display: none;
+        }
+        .ai-tutor p {
+            margin: 10px 0;
+        }
+        .ai-tutor .ai-message {
+            color: #00ffcc;
+            font-weight: bold;
+        }
+        .start-button {
+            background-color: #00ffcc;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+            font-size: 18px;
+            transition: 0.3s ease-in-out;
+        }
+        .start-button:hover {
+            background-color: #00b3b3;
+            transform: scale(1.1);
+        }
+        .memory-lane-container {
+            margin-top: 40px;
+        }
+        .instruction {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #00ffcc;
+        }
+        .thank-you {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 255, 204, 0.6);
+            font-size: 20px;
+            color: #00ffcc;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🚗 Memory Lane: Proton Cars & Chemistry</h1>
+    <p>Click on the **checkpoints** along the road to relive the key moments from our Proton chemistry adventure!</p>
+    <p class="instruction">💡 Click on the numbers <strong>1️⃣, 2️⃣, 3️⃣</strong> to explore each mission.</p>
+
+    <button class="start-button" onclick="startJourney()">Start the Journey</button>
+
+    <div class="memory-lane-container">
+        <div class="road">
+            <div class="car" id="car">🚗</div>
+            <div class="checkpoint" style="left: 20%;" onclick="showInfo(1)">1️⃣</div>
+            <div class="checkpoint" style="left: 50%;" onclick="showInfo(2)">2️⃣</div>
+            <div class="checkpoint" style="left: 80%;" onclick="showInfo(3)">3️⃣</div>
+        </div>
+    </div>
+
+    <div class="content-container">
+        <div class="info-box" id="info1">
+            <h2>🔬 Mission 1: Stoichiometry in Fuel Optimization</h2>
+            <p>🚗 Proton engineers calculate the perfect fuel-to-air ratio to ensure complete combustion.</p>
+            <p>🔥 **2 moles of octane + 25 moles of oxygen = 16 CO₂ + 18 H₂O**.</p>
+            <p>💡 Stoichiometry ensures **maximum fuel efficiency and minimum emissions**.</p>
+            <h3>RON 97 vs RON 95</h3>
+            <p>⛽ **RON 97** has a higher octane rating than **RON 95**, meaning it is more resistant to knocking.</p>
+            <p>🔹 **RON 97**: Better for high-performance engines, provides smoother combustion, and improves fuel efficiency.</p>
+            <p>🔹 **RON 95**: More cost-effective, suitable for standard engines, but may cause knocking in high-performance engines.</p>
+            <button class="start-button" onclick="closeInfo(1); moveToMission2()">Continue to Mission 2</button>
+        </div>
+
+        <div class="ai-tutor" id="aiTutor">
+            <h2>🤖 AI Tutor</h2>
+            <p class="ai-message">Hello! I'm your AI Tutor. Let me explain and summarize each mission for you. 😊</p>
+            <p class="ai-message" id="aiSummary"></p>
+        </div>
+    </div>
+
+    <div class="content-container">
+        <div class="info-box" id="info2">
+            <h2>🔩 Mission 2: Molecular Geometry & Material Strength</h2>
+            <p>⚙️ **Steel, aluminum, and polymers** each play a role in Proton car safety and performance.</p>
+            <p>🔹 **Steel** - Strong metallic bonds = rigid chassis.</p>
+            <p>🔹 **Aluminum** - Malleable = lightweight fuel-efficient designs.</p>
+            <p>🔹 **Polymers** - Flexible = impact-resistant bumpers.</p>
+            <h3>Why Material Choice Matters</h3>
+            <p>🔬 The molecular geometry of materials determines their strength, weight, and flexibility.</p>
+            <p>🚗 Proton uses advanced materials to balance **safety**, **performance**, and **fuel efficiency**.</p>
+            <button class="start-button" onclick="closeInfo(2); moveToMission3()">Continue to Mission 3</button>
+        </div>
+
+        <div class="ai-tutor" id="aiTutor2">
+            <h2>🤖 AI Tutor</h2>
+            <p class="ai-message">Let's dive into Mission 2! Here's a quick summary:</p>
+            <p class="ai-message" id="aiSummary2"></p>
+        </div>
+    </div>
+
+    <div class="content-container">
+        <div class="info-box" id="info3">
+            <h2>⚡ Mission 3: Quantum Mechanics & Fuel Injection</h2>
+            <p>🔬 Proton’s **fuel injectors use quantum tunneling** for precise atomization.</p>
+            <p>⛽ **Higher Octane (RON 97) = More stable, efficient combustion**.</p>
+            <p>♻️ **Catalytic converters** (Platinum) reduce harmful emissions.</p>
+            <h3>Quantum Tunneling in Fuel Injection</h3>
+            <p>🔹 Quantum tunneling allows fuel particles to pass through barriers, ensuring finer atomization.</p>
+            <p>🔹 This results in **better fuel-air mixing**, **improved combustion**, and **lower emissions**.</p>
+            <button class="start-button" onclick="closeInfo(3); showThankYou()">Finish Journey</button>
+        </div>
+
+        <div class="ai-tutor" id="aiTutor3">
+            <h2>🤖 AI Tutor</h2>
+            <p class="ai-message">Mission 3 is all about quantum mechanics! Here's the summary:</p>
+            <p class="ai-message" id="aiSummary3"></p>
+        </div>
+    </div>
+
+    <div class="thank-you" id="thankYou">
+        <h2>🌟 Thank You!</h2>
+        <p>Thank you for joining us on this journey through Proton chemistry. We hope you enjoyed learning about the science behind Proton cars! 🚗💨</p>
+        <p>Keep exploring and stay curious! 🔬✨</p>
+    </div>
+
+    <script>
+        function startJourney() {
+            let car = document.getElementById("car");
+            car.style.left = "20%"; // Move car to Mission 1
+            showAITutor(1);
+            summarizeMission(1);
+        }
+
+        function moveToMission2() {
+            let car = document.getElementById("car");
+            car.style.left = "50%"; // Move car to Mission 2
+            showAITutor(2);
+            summarizeMission(2);
+        }
+
+        function moveToMission3() {
+            let car = document.getElementById("car");
+            car.style.left = "80%"; // Move car to Mission 3
+            showAITutor(3);
+            summarizeMission(3);
+        }
+
+        function showInfo(id) {
+            document.getElementById(`info${id}`).style.display = "block";
+            showAITutor(id);
+            summarizeMission(id);
+        }
+
+        function closeInfo(id) {
+            document.getElementById(`info${id}`).style.display = "none";
+        }
+
+        function showAITutor(missionId) {
+            // Hide all AI Tutors
+            document.querySelectorAll(".ai-tutor").forEach(tutor => {
+                tutor.style.display = "none";
+            });
+            // Show the AI Tutor for the current mission
+            document.getElementById(`aiTutor${missionId}`).style.display = "block";
+        }
+
+        function summarizeMission(missionId) {
+            let summary = "";
+            switch (missionId) {
+                case 1:
+                    summary = "🔬 **Mission 1 Summary**: Stoichiometry ensures the perfect fuel-to-air ratio for efficient combustion. RON 97 is better for high-performance engines, while RON 95 is cost-effective for standard engines.";
+                    break;
+                case 2:
+                    summary = "🔩 **Mission 2 Summary**: The molecular geometry of materials like steel, aluminum, and polymers determines their strength, weight, and flexibility, ensuring Proton cars are safe and efficient.";
+                    break;
+                case 3:
+                    summary = "⚡ **Mission 3 Summary**: Quantum tunneling in fuel injectors ensures precise atomization, leading to better combustion and lower emissions. Catalytic converters further reduce harmful emissions.";
+                    break;
+            }
+            document.getElementById(`aiSummary${missionId}`).innerText = summary;
+        }
+
+        function showThankYou() {
+            document.getElementById("thankYou").style.display = "block";
+        }
+    </script>
+
+</body>
+</html>
+   
